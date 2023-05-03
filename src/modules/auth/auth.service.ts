@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Injectable, NotAcceptableException } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
@@ -27,6 +28,11 @@ export class AuthService {
     const payload = { username: user.username, sub: user._id };
     return {
       access_token: this.jwtService.sign(payload),
+      refresh_token: this.jwtService.sign(
+        { email: user.email, sub: user.id },
+        { expiresIn: '1h' },
+      ),
     };
   }
+
 }
