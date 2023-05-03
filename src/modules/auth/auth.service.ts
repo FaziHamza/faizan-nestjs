@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Injectable, NotAcceptableException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
@@ -11,25 +11,26 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async validateUser(username: string, password: string): Promise<any> {
-    const user = await this.usersService.getUser({ username });
+  async validateUser(username: string, password: string, userId?: string): Promise<any> {
+    const query: any = { username };
+    if (userId) {
+      query._id = userId;
+    }
+    const user = await this.usersService.getUser(query);
     if (!user) return null;
-    const passwordValid = await bcrypt.compare(password, user.password);
-    if (!user) {
-      throw new NotAcceptableException('could not find the user');
+    if (password && !(await bcrypt.compare(password, user.password))) {
+      return null;
     }
-    if (user && passwordValid) {
-      return user;
-    }
-    return null;
+    return user;
   }
-
+  
+ 
   async login(user: any) {
     const payload = { username: user.username, sub: user._id };
     return {
       access_token: this.jwtService.sign(payload),
       refresh_token: this.jwtService.sign(
-        { email: user.email, sub: user.id },
+        { username: user.username, sub: user._id },
         { expiresIn: '1h' },
       ),
     };
