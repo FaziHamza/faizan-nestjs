@@ -1,4 +1,4 @@
-import { StandardService } from './modules/standard/standard.service';
+import { StandardModule } from './modules/standard/standard.module';
 import { StudentModule } from './modules/student/student.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { Module } from '@nestjs/common';
@@ -8,7 +8,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
-    // StudentModule,
+    StandardModule,
+    StudentModule,
     AuthModule,
     MongooseModule.forRoot(
       'mongodb+srv://emadkhanqai:bLMB4D52Ihh8ukCV@cluster0.daixtco.mongodb.net/faizan-nestjs',

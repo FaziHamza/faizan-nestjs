@@ -11,30 +11,29 @@ import {
 import { StudentService } from './student.service';
 import { Student } from './student.model';
 import { JwtAuthGuard } from '../auth/jwt.guard';
+import { AuthGuard } from '@nestjs/passport';
 
+// @UseGuards(JwtAuthGuard)
+@UseGuards(AuthGuard('jwt'))
 @Controller('student')
 export class StudentController {
   constructor(private readonly studentService: StudentService) {}
 
-  @UseGuards(JwtAuthGuard)
   @Get()
   async getAll(): Promise<Student[]> {
     return this.studentService.getAll();
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get(':id')
   async getById(@Param('id') id: string): Promise<Student> {
     return this.studentService.getById(id);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Post()
   async create(@Body() body: Student): Promise<Student> {
     return this.studentService.create(body);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Put(':id')
   async update(
     @Param('id') id: string,
@@ -43,7 +42,6 @@ export class StudentController {
     return this.studentService.update(id, body);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   async delete(@Param('id') id: string): Promise<Student> {
     return this.studentService.delete(id);

@@ -10,9 +10,6 @@ export class Standard {
 
   @Prop({ required: true })
   floor: number;
-
-  @Prop({ required: true })
-  _id: string;
 }
 
 export const StandardSchema = SchemaFactory.createForClass(Standard);

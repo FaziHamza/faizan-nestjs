@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, Types } from 'mongoose';
+import { Schema as MongooseSchema } from 'mongoose';
 
 export type StudentDocument = Student & Document;
 
@@ -14,14 +15,11 @@ export class Student {
   @Prop({ required: true })
   mobile: string;
 
-  // @Prop({ type: 'ObjectId', ref: 'Standard' })
-  // standard: Standard['_id'];
-
-  @Prop({ type: String, ref: 'standard', required: true })
-  standard: string;
-
-  // @Prop({ required: true })
-  // _id: string;
+  @Prop({
+    required: true,
+    type: MongooseSchema.Types.ObjectId,
+  })
+  standard: Types.ObjectId;
 }
 
 export const StudentSchema = SchemaFactory.createForClass(Student);

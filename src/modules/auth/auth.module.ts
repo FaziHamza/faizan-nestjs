@@ -4,10 +4,11 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthController } from './auth.controller';
 import { MongooseModule } from '@nestjs/mongoose';
-import { LocalStrategy } from './local.auth';
+import { LocalStrategy } from './local.strategy';
 import { UserSchema } from '../users/users.model';
 import { UsersService } from '../users/users.service';
 import { UserModule } from '../users/users.module';
+import { JwtStrategy } from './jwt.strategy';
 
 // use this command to generate JWT secret key
 // node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
@@ -19,11 +20,12 @@ import { UserModule } from '../users/users.module';
     JwtModule.register({
       secret:
         '0193c29ad58f4211bde65108419095c45eb363e05e70c66a48f40b2d4c807176',
-      signOptions: { expiresIn: '60s' },
+      signOptions: { expiresIn: '1h' },
     }),
     MongooseModule.forFeature([{ name: 'user', schema: UserSchema }]),
   ],
-  providers: [AuthService, UsersService, LocalStrategy],
+  providers: [AuthService, UsersService, LocalStrategy, JwtStrategy],
   controllers: [AuthController],
+  exports: [AuthService],
 })
 export class AuthModule {}

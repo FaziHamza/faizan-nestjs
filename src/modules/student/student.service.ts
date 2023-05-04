@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 import { Student, StudentDocument } from './student.model';
 import { StandardService } from '../standard/standard.service';
 
@@ -25,18 +25,23 @@ export class StudentService {
   }
 
   async create(data: Student): Promise<Student> {
-    const standard = await this.standardService.getById(data.standard);
+    console.log('standard', data);
+    const objectId = new mongoose.Types.ObjectId(data.standard);
+    console.log('objectId from create student 1', objectId);
+    console.log('objectId from create student 2', objectId.toString());
+    const standard = await this.standardService.getById(objectId.toString());
     if (!standard) {
       throw new NotFoundException('Standard not found');
     }
     const student = new this.studentModel(data);
-    student.standard = standard._id;
+    student.standard = objectId;
     await student.save();
     return student;
   }
 
   async update(id: string, data: Student): Promise<Student> {
-    const standard = await this.standardService.getById(data.standard);
+    const objectId = new mongoose.Types.ObjectId(data.standard);
+    const standard = await this.standardService.getById(objectId.toString());
     if (!standard) {
       throw new NotFoundException('Standard not found');
     }
@@ -47,17 +52,16 @@ export class StudentService {
     student.name = data.name;
     student.age = data.age;
     student.mobile = data.mobile;
-    student.standard = standard._id;
+    student.standard = objectId;
     await student.save();
     return student;
   }
 
   async delete(id: string): Promise<Student> {
-    const student = await this.studentModel.findById(id);
-    if (!student) {
-      throw new NotFoundException('Student not found');
+    const deletedStudent = await this.studentModel.findByIdAndDelete(id);
+    if (!deletedStudent) {
+      throw new NotFoundException(`Student not found`);
     }
-    await student.deleteOne({ _id: id }).exec();
-    return student;
+    return deletedStudent;
   }
 }

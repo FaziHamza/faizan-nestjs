@@ -17,7 +17,7 @@ export class StandardService {
   async getById(id: string): Promise<Standard> {
     const standard = await this.standardModel.findById(id).exec();
     if (!standard) {
-      throw new NotFoundException('Standard not found');
+      throw new NotFoundException('Standard not found here');
     }
     return standard;
   }

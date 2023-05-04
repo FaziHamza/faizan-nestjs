@@ -16,7 +16,14 @@ export class UsersService {
     });
   }
 
-  async getUser(query: object): Promise<User> {
-    return this.userModel.findOne(query);
+  async getUser(query: any): Promise<User> {
+    let userName;
+    if (query?.username) {
+      userName = query?.username;
+    }
+    if (query?.username?.username) {
+      userName = query?.username?.username;
+    }
+    return this.userModel.findOne({ username: userName });
   }
 }
