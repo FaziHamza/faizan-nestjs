@@ -17,7 +17,10 @@ export class StudentService {
   }
 
   async getById(id: string): Promise<Student> {
-    const student = await this.studentModel.findById(id).exec();
+    const student = await this.studentModel
+      .findById(id)
+      .populate('standard', 'name')
+      .exec();
     if (!student) {
       throw new NotFoundException('Student not found');
     }
