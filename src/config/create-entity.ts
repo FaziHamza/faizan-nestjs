@@ -20,11 +20,12 @@ export function generateEntityFromJSON(json: any, tableName: string): any {
       let columnOptions = {};
 
       if (typeof json[key] === 'string') {
-        columnOptions = { type: 'varchar' };
+        columnOptions = { nullable: true, type: 'varchar' };
       } else if (typeof json[key] === 'number') {
-        columnOptions = { type: 'int' };
+        columnOptions = { nullable: true, type: 'int' };
       } else if (json[key] === true || json[key] === false) {
         columnOptions = {
+          nullable: true,
           type: 'bit',
           transformer: {
             to(value) {
@@ -36,7 +37,7 @@ export function generateEntityFromJSON(json: any, tableName: string): any {
           },
         };
       } else if (json[key] instanceof Date) {
-        columnOptions = { type: 'datetime' };
+        columnOptions = { nullable: true, type: 'datetime' };
       }
 
       Reflect.defineMetadata(
