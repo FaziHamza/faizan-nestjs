@@ -1,16 +1,13 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { generateEntityFromJSON } from '../../config/create-entity';
 
-@Entity()
-export class Todos {
-  @PrimaryGeneratedColumn({ name: 'id' })
-  id: number;
+// Your custom schema
+const json = {
+  name: 'John Doe',
+  email: 'john@example.com',
+  age: 25,
+  isActive: true,
+  createdAt: new Date(),
+};
 
-  @Column()
-  name: string;
-
-  @Column()
-  email: string;
-
-  @Column()
-  age: number;
-}
+// Generate the entity class from the JSON
+export const Todos = generateEntityFromJSON(json, 'todos');

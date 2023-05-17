@@ -18,22 +18,25 @@ export class TodosController {
   constructor(private readonly todoService: TodoService) {}
 
   @Get()
-  async findAll(): Promise<Todos[]> {
+  async findAll(): Promise<(typeof Todos)[]> {
     return this.todoService.findAll();
   }
 
   @Get(':id')
-  async findById(@Param('id') id: number): Promise<Todos> {
+  async findById(@Param('id') id: number): Promise<typeof Todos> {
     return this.todoService.findById(id);
   }
 
   @Post()
-  async create(@Body() user: Todos): Promise<Todos> {
+  async create(@Body() user: typeof Todos): Promise<typeof Todos> {
     return this.todoService.create(user);
   }
 
   @Put(':id')
-  async update(@Param('id') id: number, @Body() user: Todos): Promise<Todos> {
+  async update(
+    @Param('id') id: number,
+    @Body() user: typeof Todos,
+  ): Promise<typeof Todos> {
     return this.todoService.update(id, user);
   }
 
