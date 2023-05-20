@@ -1,5 +1,4 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-
 export function generateEntityFromJSON(json: any, tableName: string): any {
   @Entity({ name: tableName })
   class DynamicEntity {

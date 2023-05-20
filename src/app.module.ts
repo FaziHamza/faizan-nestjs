@@ -1,3 +1,4 @@
+import { KnexSchemaModule } from './modules/knex-dynamic-schema/knex.module';
 import { StandardModule } from './modules/standard/standard.module';
 import { StudentModule } from './modules/student/student.module';
 import { AuthModule } from './modules/auth/auth.module';
@@ -11,6 +12,7 @@ import { TodosModule } from './modules/todos/todos.module';
 
 @Module({
   imports: [
+    KnexSchemaModule,
     TodosModule,
     StandardModule,
     StudentModule,
@@ -28,6 +30,7 @@ import { TodosModule } from './modules/todos/todos.module';
         encrypt: false,
       },
     }),
+
     MongooseModule.forRoot(
       'mongodb+srv://emadkhanqai:bLMB4D52Ihh8ukCV@cluster0.daixtco.mongodb.net/faizan-nestjs',
     ),
