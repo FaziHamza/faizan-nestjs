@@ -9,6 +9,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Todos } from './modules/todos/todos.entity';
 import { TodosModule } from './modules/todos/todos.module';
+import { KnexModule } from 'nest-knexjs';
+import { DB_CONFIG } from './config/global-db-config';
 
 @Module({
   imports: [
@@ -17,23 +19,34 @@ import { TodosModule } from './modules/todos/todos.module';
     StandardModule,
     StudentModule,
     AuthModule,
+    KnexModule.forRoot({
+      config: {
+        client: DB_CONFIG.SQL.client,
+        useNullAsDefault: true,
+        connection: {
+          host: DB_CONFIG.SQL.host,
+          database: DB_CONFIG.SQL.database,
+          user: DB_CONFIG.SQL.username,
+          password: DB_CONFIG.SQL.password,
+        },
+      },
+    }),
+
     TypeOrmModule.forRoot({
       type: 'mssql',
-      host: 'localhost',
-      port: 1433,
-      database: 'FaizanMSSQL',
-      entities: [Todos],
-      username: 'faizan',
-      password: 'abc123',
+      host: DB_CONFIG.SQL.host,
+      port: DB_CONFIG.SQL.sqlPort,
+      database: DB_CONFIG.SQL.database,
+      username: DB_CONFIG.SQL.username,
+      password: DB_CONFIG.SQL.password,
       synchronize: true,
+      entities: [Todos],
       options: {
         encrypt: false,
       },
     }),
 
-    MongooseModule.forRoot(
-      'mongodb+srv://emadkhanqai:bLMB4D52Ihh8ukCV@cluster0.daixtco.mongodb.net/faizan-nestjs',
-    ),
+    MongooseModule.forRoot(DB_CONFIG.MONGODB.mongoUrl),
   ],
   controllers: [AppController],
   providers: [AppService],

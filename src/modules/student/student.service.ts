@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { StandardService } from '../standard/standard.service';
+import { Student, StudentDocument } from './student.model';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose, { Model } from 'mongoose';
-import { Student, StudentDocument } from './student.model';
-import { StandardService } from '../standard/standard.service';
 
 @Injectable()
 export class StudentService {
@@ -28,10 +28,7 @@ export class StudentService {
   }
 
   async create(data: Student): Promise<Student> {
-    console.log('standard', data);
     const objectId = new mongoose.Types.ObjectId(data.standard);
-    console.log('objectId from create student 1', objectId);
-    console.log('objectId from create student 2', objectId.toString());
     const standard = await this.standardService.getById(objectId.toString());
     if (!standard) {
       throw new NotFoundException('Standard not found');

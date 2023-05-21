@@ -10,7 +10,6 @@ import {
 } from '@nestjs/common';
 import { StudentService } from './student.service';
 import { Student } from './student.model';
-import { JwtAuthGuard } from '../auth/jwt.guard';
 import { AuthGuard } from '@nestjs/passport';
 
 // @UseGuards(JwtAuthGuard)

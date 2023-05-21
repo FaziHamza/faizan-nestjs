@@ -1,20 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { Knex, knex } from 'knex';
+import { InjectModel } from 'nest-knexjs';
 
 @Injectable()
 export class KnexSchemaBuilderService {
-  private knex: Knex;
-  constructor() {
-    this.knex = knex({
-      client: 'mssql',
-      connection: {
-        host: 'localhost',
-        user: 'faizan',
-        password: 'abc123',
-        database: 'FaizanMSSQL',
-      },
-    });
-  }
+  constructor(@InjectModel() private knex: Knex) {}
 
   async createOrUpdateTable(tableName: string, schema: any): Promise<void> {
     if (await this.knex.schema.hasTable(tableName)) {
