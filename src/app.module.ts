@@ -1,3 +1,4 @@
+import { KnexCrudModule } from './modules/knex-crud/knex-crud.module';
 import { KnexSchemaModule } from './modules/knex-dynamic-schema/knex.module';
 import { StandardModule } from './modules/standard/standard.module';
 import { StudentModule } from './modules/student/student.module';
@@ -15,6 +16,7 @@ import { DB_CONFIG } from './config/global-db-config';
 @Module({
   imports: [
     KnexSchemaModule,
+    KnexCrudModule,
     TodosModule,
     StandardModule,
     StudentModule,
