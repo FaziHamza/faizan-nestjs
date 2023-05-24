@@ -1,3 +1,4 @@
+import { CronPostController } from './modules/cron/cron-post.controller';
 import { KnexCrudModule } from './modules/knex-crud/knex-crud.module';
 import { KnexSchemaModule } from './modules/knex-dynamic-schema/knex.module';
 import { StandardModule } from './modules/standard/standard.module';
@@ -52,7 +53,7 @@ import { KnexSchemaBuilderService } from './modules/knex-dynamic-schema/knex.ser
 
     MongooseModule.forRoot(DB_CONFIG.MONGODB.mongoUrl),
   ],
-  controllers: [AppController],
+  controllers: [CronPostController, AppController],
   providers: [AppService, KnexSchemaBuilderService, KnexCronJob],
 })
 export class AppModule {}
