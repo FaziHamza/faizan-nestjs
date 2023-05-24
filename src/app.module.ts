@@ -12,6 +12,8 @@ import { Todos } from './modules/todos/todos.entity';
 import { TodosModule } from './modules/todos/todos.module';
 import { KnexModule } from 'nest-knexjs';
 import { DB_CONFIG } from './config/global-db-config';
+import { KnexCronJob } from './config/cron-job';
+import { KnexSchemaBuilderService } from './modules/knex-dynamic-schema/knex.service';
 
 @Module({
   imports: [
@@ -51,6 +53,6 @@ import { DB_CONFIG } from './config/global-db-config';
     MongooseModule.forRoot(DB_CONFIG.MONGODB.mongoUrl),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, KnexSchemaBuilderService, KnexCronJob],
 })
 export class AppModule {}

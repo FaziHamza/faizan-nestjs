@@ -1,5 +1,5 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { Knex, knex } from 'knex';
+import { Injectable } from '@nestjs/common';
+import { Knex } from 'knex';
 import { InjectModel } from 'nest-knexjs';
 
 @Injectable()
