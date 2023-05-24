@@ -6,9 +6,12 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { KnexCrudService } from './knex-crud.service';
+import { AuthGuard } from '@nestjs/passport';
 
+@UseGuards(AuthGuard('jwt'))
 @Controller('knex-crud')
 export class KnexCrudController {
   constructor(private readonly knexCrudService: KnexCrudService) {}
