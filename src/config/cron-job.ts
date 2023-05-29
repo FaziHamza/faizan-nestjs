@@ -12,7 +12,7 @@ export class KnexCronJob {
   ) {
     // Create a cron job that runs at a specified interval
     const cronJob = new CronJob(
-      this.runCronJobAfterEvery(1, 'Minute'),
+      this.runCronJobAfterEvery(60, 'Minute'),
       async () => {
         try {
           // Retrieve data from the CRON_JOB table

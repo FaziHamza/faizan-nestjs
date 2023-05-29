@@ -2,7 +2,7 @@ import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { KnexSchemaBuilderService } from './knex.service';
 import { AuthGuard } from '@nestjs/passport';
 
-@UseGuards(AuthGuard('jwt'))
+// @UseGuards(AuthGuard('jwt'))
 @Controller('knex')
 export class KnexController {
   constructor(private readonly knexService: KnexSchemaBuilderService) {}

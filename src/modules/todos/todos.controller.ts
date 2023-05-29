@@ -12,7 +12,7 @@ import { TodoService } from './todos.service';
 import { Todos } from './todos.entity';
 import { AuthGuard } from '@nestjs/passport';
 
-@UseGuards(AuthGuard('jwt'))
+// @UseGuards(AuthGuard('jwt'))
 @Controller('todos')
 export class TodosController {
   constructor(private readonly todoService: TodoService) {}

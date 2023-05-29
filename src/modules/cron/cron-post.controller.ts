@@ -3,7 +3,7 @@ import { InjectModel } from 'nest-knexjs';
 import { Knex } from 'knex';
 import { AuthGuard } from '@nestjs/passport';
 
-@UseGuards(AuthGuard('jwt'))
+// @UseGuards(AuthGuard('jwt'))
 @Controller('cron-post')
 export class CronPostController {
   constructor(@InjectModel() private knex: Knex) {}

@@ -1,13 +1,16 @@
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { KnexCrudService } from '../knex-crud/knex-crud.service';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('knex-employee')
 @UseGuards(AuthGuard('jwt'))
 @Controller('knex-employee')
 export class KnexEmployeeController {
   constructor(private readonly knexCrudService: KnexCrudService) {}
 
   @Post()
+  @ApiOperation({ summary: 'Create employee' })
   async createEmployee(@Body() data: any) {
     const trx = await this.knexCrudService.transaction();
 

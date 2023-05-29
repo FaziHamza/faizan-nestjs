@@ -5,8 +5,8 @@ export const DB_CONFIG = {
     host: 'localhost',
     sqlPort: 1433,
     database: 'FaizanMSSQL',
-    username: 'faizan',
-    password: 'abc123',
+    username: 'sa',
+    password: '123456',
   },
   MONGODB: {
     mongoUrl:

@@ -20,10 +20,10 @@ import { KnexSchemaBuilderService } from './modules/knex-dynamic-schema/knex.ser
   imports: [
     KnexSchemaModule,
     KnexCrudModule,
-    TodosModule,
-    StandardModule,
-    StudentModule,
-    AuthModule,
+    // TodosModule,
+    // StandardModule,
+    // StudentModule,
+    // AuthModule,
     KnexModule.forRoot({
       config: {
         client: DB_CONFIG.SQL.client,
@@ -51,7 +51,7 @@ import { KnexSchemaBuilderService } from './modules/knex-dynamic-schema/knex.ser
       },
     }),
 
-    MongooseModule.forRoot(DB_CONFIG.MONGODB.mongoUrl),
+    // MongooseModule.forRoot(DB_CONFIG.MONGODB.mongoUrl),
   ],
   controllers: [CronPostController, AppController],
   providers: [AppService, KnexSchemaBuilderService, KnexCronJob],

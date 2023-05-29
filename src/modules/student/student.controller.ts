@@ -13,7 +13,7 @@ import { Student } from './student.model';
 import { AuthGuard } from '@nestjs/passport';
 
 // @UseGuards(JwtAuthGuard)
-@UseGuards(AuthGuard('jwt'))
+// @UseGuards(AuthGuard('jwt'))
 @Controller('student')
 export class StudentController {
   constructor(private readonly studentService: StudentService) {}
